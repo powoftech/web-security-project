@@ -5,7 +5,7 @@
     "use strict";
 
         /*==================================================================
-        [ Slick1 ]*/
+        [ s1 ]*/
         $('.wrap-slick1').each(function(){
             var wrapSlick1 = $(this);
             var slick1 = $(this).find('.slick1');

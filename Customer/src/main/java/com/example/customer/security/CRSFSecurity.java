@@ -1,4 +1,4 @@
-package com.example.admin.controller;
+package com.example.customer.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,18 +7,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class CRSFConfig extends WebSecurityConfigurerAdapter {
+public class CRSFSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
-        .authorizeRequests()
-                .antMatchers("/categories","/save-category","/findById/**",
-                        "/update-category","/delete-category","/enable-category"
-                        ,"/login","/home","/","/do-login","/orders","/accept-order",
-                        "/cancel-order","/products").permitAll()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/css/**", "/js/**", "/img/**", "/vendor/**","/scss/**","/customCss/**").permitAll()
-                .antMatchers("/add-product","/save-product","/update-product/**","/enable-product","/delete-product").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .csrf();
     }
