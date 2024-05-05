@@ -38,10 +38,10 @@ public class CustomerController {
 
     @PostMapping("/update-profile")
     public String updateProfile(@Valid @ModelAttribute("customer") CustomerDto customerDto,
-                                BindingResult result,
-                                RedirectAttributes attributes,
-                                Model model,
-                                HttpSession session) {
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model,
+            HttpSession session) {
         Customer customer = (Customer) session.getAttribute("customer");
         if (result.hasErrors()) {
             return "customer-information";
@@ -49,8 +49,8 @@ public class CustomerController {
         customerService.update(customerDto);
         CustomerDto customerUpdate = customerService.getCustomer(customer.getCustomerUserName());
         attributes.addFlashAttribute("success", "Update successfully!");
-        session.setAttribute("customer",customerService.findByUsername(customerUpdate.getCustomerUserName()));
-        model.addAttribute("customer",customerUpdate);
+        session.setAttribute("customer", customerService.findByUsername(customerUpdate.getCustomerUserName()));
+        model.addAttribute("customer", customerUpdate);
         return "redirect:/customer-profile";
     }
 
@@ -63,10 +63,10 @@ public class CustomerController {
 
     @PostMapping("/change-password")
     public String changePass(@RequestParam("oldPassword") String oldPassword,
-                             @RequestParam("newPassword") String newPassword,
-                             @RequestParam("repeatedNewPassword") String repeatPassword,
-                             RedirectAttributes attributes,
-                             Model model, HttpSession session) {
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("repeatedNewPassword") String repeatPassword,
+            RedirectAttributes attributes,
+            Model model, HttpSession session) {
         Customer customer = (Customer) session.getAttribute("customer");
         CustomerDto customerDto = customerService.getCustomer(customer.getCustomerUserName());
         if (Objects.equals(oldPassword, customerDto.getCustomerPassword())
@@ -83,4 +83,3 @@ public class CustomerController {
         }
     }
 }
-

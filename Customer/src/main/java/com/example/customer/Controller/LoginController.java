@@ -22,41 +22,40 @@ import com.example.library.service.CustomerService;
 public class LoginController {
     @Autowired
     private CustomerService customerService;
+
     @GetMapping("/login")
-    private String Login()
-    {
+    private String Login() {
         return "login";
     }
+
     @PostMapping("/do-login")
-    private String doLogin(@RequestParam String username, @RequestParam String password,Model model, HttpSession session)
-    {
-            Customer customer = customerService.findByUsername(username);
-            if (customer == null) {
-                model.addAttribute("error", "Invalid Username");
-                return "login";
-            }
-            else if(!Objects.equals(password, customer.getCustomerPassword()))
-                 {
-                     model.addAttribute("error", "Wrong password");
-                    return "login";
-                }
-            else {
-                session.setAttribute("customer", customer);
-                return "redirect:/home";
-            }
+    private String doLogin(@RequestParam String username, @RequestParam String password, Model model,
+            HttpSession session) {
+        Customer customer = customerService.findByUsername(username);
+        if (customer == null) {
+            model.addAttribute("error", "Invalid Username");
+            return "login";
+        } else if (!Objects.equals(password, customer.getCustomerPassword())) {
+            model.addAttribute("error", "Wrong password");
+            return "login";
+        } else {
+            session.setAttribute("customer", customer);
+            return "redirect:/home";
+        }
     }
+
     @GetMapping("/register")
-    private String Register(Model model)
-    {
+    private String Register(Model model) {
         model.addAttribute("title", "Register");
         model.addAttribute("page", "Register");
         model.addAttribute("customerDto", new CustomerDto());
         return "register";
     }
+
     @PostMapping("/do-register")
     public String registerCustomer(@Valid @ModelAttribute("customerDto") CustomerDto customerDto,
-                                   BindingResult result,
-                                   Model model) {
+            BindingResult result,
+            Model model) {
         try {
             if (result.hasErrors()) {
                 model.addAttribute("customerDto", customerDto);
@@ -68,8 +67,7 @@ public class LoginController {
                 model.addAttribute("customerDto", customerDto);
                 model.addAttribute("error", "Email has been register!");
                 return "register";
-            }
-            else {
+            } else {
                 customerService.save(customerDto);
                 model.addAttribute("success", "Register successfully!");
             }
@@ -79,9 +77,9 @@ public class LoginController {
         }
         return "redirect:/login";
     }
+
     @GetMapping("/logout")
-    private String logOut(HttpSession session)
-    {
+    private String logOut(HttpSession session) {
         session.removeAttribute("customer");
         return "redirect:/login";
     }

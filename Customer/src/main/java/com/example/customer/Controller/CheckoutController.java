@@ -42,14 +42,14 @@ public class CheckoutController {
         }
     }
 
-    @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
+    @RequestMapping(value = "/add-order", method = { RequestMethod.POST })
     public String createOrder(Model model,
-                              HttpSession session) {
+            HttpSession session) {
         Customer customer = (Customer) session.getAttribute("customer");
         ShoppingCart cart = customer.getCart();
-        Order order = orderService.save(cart,customer);
+        Order order = orderService.save(cart, customer);
         session.removeAttribute("totalItems");
-        session.setAttribute("customer",order.getCustomer());
+        session.setAttribute("customer", order.getCustomer());
         model.addAttribute("order", order);
         model.addAttribute("title", "Order Detail");
         model.addAttribute("page", "Order Detail");

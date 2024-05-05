@@ -12,8 +12,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class CSRFSecurity {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/cart", "/add-to-cart", "/update-cart", "/check-out", "/add-order", "/customer-profile",
                         "/update-profile", "/change-password",
                         "/home", "/", "/login", "/do-login", "/register", "/do-register", "/logout", "/order",

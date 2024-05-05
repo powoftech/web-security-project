@@ -25,15 +25,14 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderRepository orderRepository;
+
     @GetMapping("/order")
     private String getOrder(Model model, HttpSession session) {
         Customer customer = (Customer) session.getAttribute("customer");
         List<Order> orders = customer.getOrders();
-        if(customer == null)
-        {
+        if (customer == null) {
             return "redirect:/login";
-        }
-        else {
+        } else {
             if (orders == null) {
                 model.addAttribute("check");
             } else {
@@ -45,23 +44,24 @@ public class OrderController {
             return "order";
         }
     }
-    @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
+
+    @RequestMapping(value = "/cancel-order", method = { RequestMethod.PUT, RequestMethod.GET })
     public String cancelOrder(Long id, RedirectAttributes attributes, HttpSession session) {
         Order order = orderRepository.getReferenceById(id);
         orderService.cancelOrder(id);
-        session.setAttribute("customer",order.getCustomer());
+        session.setAttribute("customer", order.getCustomer());
         attributes.addFlashAttribute("success", "Cancel order successfully!");
         return "redirect:/order";
     }
+
     @GetMapping(value = "/order-view/{id}")
-    public String viewOrder(@PathVariable("id") Long id, Model model)
-    {
+    public String viewOrder(@PathVariable("id") Long id, Model model) {
         Order order = orderRepository.getReferenceById(id);
-        List<OrderDetail> orderDetailList= orderService.findOrderDetailByOrderId(id);
+        List<OrderDetail> orderDetailList = orderService.findOrderDetailByOrderId(id);
         model.addAttribute("title", "View Order");
         model.addAttribute("page", "View Order");
-        model.addAttribute("orderDetailList",orderDetailList);
-        model.addAttribute("order",order);
+        model.addAttribute("orderDetailList", orderDetailList);
+        model.addAttribute("order", order);
         return "view-order";
     }
 }
