@@ -21,9 +21,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" th:href="@{/vendor/animsition/css/animsition.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css}">
+    <link rel="stylesheet" th:nonce="${nonce1}" th:href="@{https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css}" type="text/css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css}">
+    <link rel="stylesheet" th:nonce="${nonce}" th:href="@{https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css}" type="text/css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" th:href="@{/vendor/slick/slick.css}">
     <!--===============================================================================================-->
@@ -210,11 +210,11 @@
                 <img th:src="@{images/icons/icon-close2.png}" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
+            <form th:action="@{/search-products}" method="get" class="wrap-search-header flex-w p-l-15">
                 <button class="flex-c-m trans-04">
                     <i class="zmdi zmdi-search"></i>
                 </button>
-                <input class="plh3" type="text" name="search" placeholder="Search...">
+                <input class="plh3" type="text" name="keyword" placeholder="Search...">
             </form>
         </div>
     </div>
@@ -542,14 +542,6 @@
     <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
     <!--===============================================================================================-->
     <script th:src="@{https://cdn.jsdelivr.net/npm/select2/dist/js/select2.min.js}"></script>
-    <script>
-        $(".js-select2").each(function(){
-            $(this).select2({
-                minimumResultsForSearch: 20,
-                dropdownParent: $(this).next('.dropDownSelect2')
-            });
-        })
-    </script>
     <!--===============================================================================================-->
     <script th:src="@{https://cdn.jsdelivr.net/npm/moment/min/moment.min.js}"></script>
     <script th:src="@{https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.js}"></script>
@@ -558,117 +550,16 @@
     <script th:src="@{/js/slick-custom.js}"></script>
     <!--===============================================================================================-->
     <script th:src="@{/vendor/parallax100/parallax100.js}"></script>
-    <script>
-        $('.parallax100').parallax100();
-    </script>
     <!--===============================================================================================-->
     <script th:src="@{/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
-    <script>
-        $('.gallery-lb').each(function() { // the containers for all your galleries
-            $(this).magnificPopup({
-                delegate: 'a', // the selector for gallery item
-                type: 'image',
-                gallery: {
-                    enabled:true
-                },
-                mainClass: 'mfp-fade'
-            });
-        });
-    </script>
     <!--===============================================================================================-->
     <script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
     <!--===============================================================================================-->
     <script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
-    <script>
-        /*---------------------------------------------*/
-
-        $('.js-addcart-detail').each(function(){
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function(){
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
-    </script>
     <!--===============================================================================================-->
     <script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
-    <script>
-        $('.js-pscroll').each(function(){
-            $(this).css('position','relative');
-            $(this).css('overflow','hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
-
-            $(window).on('resize', function(){
-                ps.update();
-            })
-        });
-    </script>
-
+    <script th:src="@{/customJs.js}"></script>
     <!--===============================================================================================-->
-    <script>
-        // Get a reference to the "Quick View" buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get a reference to the "Quick View" button
-            const buttons = document.querySelectorAll('.quick-view-button');
-            const expandImage = document.getElementById('expand-image');
-            const dataThumb = document.getElementById('data-thumb');
-            // Add a click event listener to the button
-            buttons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const productName = this.getAttribute('data-product-name');
-                    const productPrice = this.getAttribute('data-product-price');
-                    const productDescription = this.getAttribute('data-product-description');
-                    const productImage = this.getAttribute('data-product-image');
-                    const productType = this.getAttribute('data-product-type');
-                    const productQuantity = this.getAttribute('data-product-quantity');
-                    const productId = this.getAttribute('data-product-id');
-                    // Update the modal content with the retrieved product data
-                    document.getElementById('product-name').textContent = productName;
-                    document.getElementById('product-price').textContent = productPrice;
-                    document.getElementById('product-description').textContent = productDescription;
-                    document.getElementById('product-image').src = productImage;
-                    document.getElementById('product-type').textContent=productType;
-                    document.getElementById('product-quantity').textContent=productQuantity;
-                    document.getElementById('product-id').value = productId;
-                    // Retrieve and set data-thumb attribute
-                    expandImage.href=productImage;
-                    dataThumb.src=productImage;
-            });
-            });
-        });
-    </script>
-    <script>
-        function activateMenuItem(event, clickedElement) {
-            // Prevent the default link behavior
-            event.preventDefault();
-
-            // Remove the 'active-menu' class from all menu items
-            var menuItems = document.querySelectorAll('.main-menu li');
-            menuItems.forEach(function(item) {
-                item.classList.remove('active-menu');
-            });
-
-            // Add the 'active-menu' class to the clicked menu item's parent <li>
-            clickedElement.parentNode.classList.add('active-menu');
-
-            // Simulate the navigation after a short delay (e.g., 100 milliseconds)
-            setTimeout(function() {
-                window.location.href = clickedElement.getAttribute('href');
-            }, 100);
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.dropdown-toggle').on('click', function() {
-                var dropdownMenu = $(this).next('.dropdown-menu');
-                dropdownMenu.toggle(); // Toggle the visibility of the dropdown
-            });
-        });
-    </script>
-    <!--=====================================================================================-->
     <script th:src="@{/js/main.js}"></script>
 
 </div>
