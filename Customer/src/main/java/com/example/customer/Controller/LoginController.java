@@ -1,11 +1,11 @@
 package com.example.customer.Controller;
 
-import com.example.library.dto.CustomerDto;
-import com.example.library.model.Customer;
-import com.example.library.service.CustomerService;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
+import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.Objects;
+import com.example.library.dto.CustomerDto;
+import com.example.library.model.Customer;
+import com.example.library.service.CustomerService;
 
 @Controller
 public class LoginController {

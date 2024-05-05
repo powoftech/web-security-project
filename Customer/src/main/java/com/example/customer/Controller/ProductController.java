@@ -1,25 +1,19 @@
 package com.example.customer.Controller;
 
-import com.example.library.dto.ProductDto;
-import com.example.library.model.Category;
-import com.example.library.model.Product;
-import com.example.library.service.CategoryService;
-import com.example.library.service.ProductService;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.Convert;
-import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import com.example.library.dto.ProductDto;
+import com.example.library.model.Category;
+import com.example.library.service.CategoryService;
+import com.example.library.service.ProductService;
 
 @Controller
 public class ProductController {

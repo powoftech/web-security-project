@@ -1,22 +1,19 @@
 package com.example.customer.Controller;
 
-import com.example.library.dto.CustomerDto;
-import com.example.library.model.Customer;
-import com.example.library.model.Order;
-import com.example.library.model.ShoppingCart;
-import com.example.library.service.CustomerService;
-import com.example.library.service.OrderService;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.List;
+import com.example.library.model.Customer;
+import com.example.library.model.Order;
+import com.example.library.model.ShoppingCart;
+import com.example.library.service.CustomerService;
+import com.example.library.service.OrderService;
 
 @Controller
 public class CheckoutController {
