@@ -9,25 +9,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class CSRFSecurity {
+        @Bean
+        protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http.authorizeRequests()
+                                .antMatchers("/categories", "/save-category", "/findById/**", "/update-category",
+                                                "/delete-category",
+                                                "/enable-category", "/login", "/home", "/", "/do-login", "/orders",
+                                                "/accept-order",
+                                                "/cancel-order", "/products")
+                                .permitAll()
+                                .antMatchers("/css/**", "/js/**", "/img/**", "/vendor/**", "/scss/**", "/customCss/**")
+                                .permitAll()
+                                .antMatchers("/add-product", "/save-product", "/update-product/**", "/enable-product",
+                                                "/delete-product")
+                                .authenticated()
+                                .and()
+                                .csrf();
 
-        http.authorizeRequests()
-                .antMatchers("/categories", "/save-category", "/findById/**", "/update-category",
-                        "/delete-category",
-                        "/enable-category", "/login", "/home", "/", "/do-login", "/orders",
-                        "/accept-order",
-                        "/cancel-order", "/products")
-                .permitAll()
-                .antMatchers("/css/**", "/js/**", "/img/**", "/vendor/**", "/scss/**", "/customCss/**")
-                .permitAll()
-                .antMatchers("/add-product", "/save-product", "/update-product/**", "/enable-product",
-                        "/delete-product")
-                .authenticated()
-                .and()
-                .csrf();
-
-        return http.build();
-    }
+                return http.build();
+        }
 }

@@ -27,7 +27,7 @@ public class ContentSecurityPolicyFilter extends GenericFilterBean {
                         + "frame-ancestors 'none';"
                         + "form-action 'self';"
                         + "style-src 'self' https://fonts.googleapis.com;"
-                        + "script-src 'self' https://cdn.jsdelivr.net;"
+                        + "script-src 'self';"
                         + "font-src 'self' https://fonts.gstatic.com;"
                         + "img-src 'self' https://source.unsplash.com https://images.unsplash.com;");
 

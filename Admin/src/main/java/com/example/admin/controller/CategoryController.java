@@ -1,15 +1,23 @@
 package com.example.admin.controller;
 
-import com.example.library.model.Category;
-import com.example.library.service.CategoryService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import com.example.library.model.Category;
+import com.example.library.service.CategoryService;
 
 @Controller
 public class CategoryController {
@@ -27,7 +35,8 @@ public class CategoryController {
     }
 
     @PostMapping("/save-category")
-    public String save(@ModelAttribute("categoryNew") Category category, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute("categoryNew") Category category, Model model,
+            RedirectAttributes redirectAttributes) {
         try {
             categoryService.save(category);
             model.addAttribute("categoryNew", category);
@@ -44,14 +53,15 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
-    @RequestMapping(value = "/findById/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/findById/{id}", method = { RequestMethod.PUT, RequestMethod.GET })
     @ResponseBody
-    public  Category findById (@PathVariable Long id) {
+    public Category findById(@PathVariable Long id) {
         return categoryService.findById(id);
     }
 
     @PostMapping("/update-category")
-    public String updateCategory(@RequestParam("id") Long categoryId, @RequestParam("name") String categoryName, RedirectAttributes redirectAttributes) {
+    public String updateCategory(@RequestParam("id") Long categoryId, @RequestParam("name") String categoryName,
+            RedirectAttributes redirectAttributes) {
         try {
             Category category = new Category();
             category.setCategoryId(categoryId);
@@ -68,7 +78,7 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
-    @RequestMapping(value = "/delete-category", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/delete-category", method = { RequestMethod.PUT, RequestMethod.GET })
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
             categoryService.deleteById(id);
@@ -79,12 +89,13 @@ public class CategoryController {
         }
         return "redirect:/categories";
     }
-    @RequestMapping(value = "/enable-category", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String enable(Long id, RedirectAttributes attributes){
+
+    @RequestMapping(value = "/enable-category", method = { RequestMethod.PUT, RequestMethod.GET })
+    public String enable(Long id, RedirectAttributes attributes) {
         try {
             categoryService.enabledById(id);
             attributes.addFlashAttribute("success", "Enabled successfully");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Failed to enabled");
         }
