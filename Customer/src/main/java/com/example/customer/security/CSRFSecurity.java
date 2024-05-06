@@ -20,7 +20,7 @@ public class CSRFSecurity {
                         "/product", "/product-detail/**", "/search-products", "/search-product/**", "/order-product/**")
                 .permitAll()
                 .antMatchers("/blog/**", "/css/**", "/fonts/**", "/image/**", "/images/**", "/js/**", "/vendor/**",
-                        "/main.js", "/style.css", "/customJs.js")
+                        "/main.js", "/style.css", "/customJs.js","/customCss.css")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

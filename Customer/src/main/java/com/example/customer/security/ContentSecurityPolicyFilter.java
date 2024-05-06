@@ -26,8 +26,8 @@ public class ContentSecurityPolicyFilter extends GenericFilterBean {
                 "default-src 'self'; "
                         + "frame-ancestors 'none'; "
                         + "form-action 'self';"
-                        + "style-src 'self' 'unsafe-inline';"
-                        + "script-src 'self' 'unsafe-inline';"
+                        + "style-src 'self';"
+                        + "script-src 'self';"
                         + "img-src 'self' data:;"
                         + "font-src 'self' https://cdn.linearicons.com;");
         chain.doFilter(request, response);
